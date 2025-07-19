@@ -5,8 +5,8 @@
 name = "countdown"
 version = "0.1.0"
 dependencies = [
-    "click>=8.1.0",
-    "rich>=13.0.0",
+    "click>=8.2.1",
+    "rich>=14.0.0",
 ]
 """
 import click
