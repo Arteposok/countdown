@@ -17,6 +17,6 @@ Countdown uses uv and pyinstaller for packaging as a project, as an executable o
 To run, use either on of
 * `countdown`
 * `uv run main.py`
-and provide the `times` argument in the format <minutes>:<seconds>
+and provide the `times` argument in the format %M:%S
 e.g. `uv run main.py 5:30`
 e.g. `countdown 3:54`
