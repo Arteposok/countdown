@@ -20,4 +20,5 @@ To run, use either on of
 and provide the `times` argument in the format %M:%S
 
 e.g. `uv run main.py 5:30`
+
 e.g. `countdown 3:54`
