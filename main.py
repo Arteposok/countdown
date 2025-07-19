@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 --- Metadata (Used by UV/Pip/Installer) ---
@@ -18,14 +19,15 @@ from rich.live import Live
 from rich.progress import Progress, BarColumn, TextColumn
 from rich.layout import Layout
 
-c = Console()
+console = Console()
 
 
 @click.command()
 @click.argument("times")
 def main(times: str) -> None:
-    c.print("[green bold]Starting countdown[/]")
+    console.print("[green bold]Starting countdown[/]")
 
+    # variable setup for future logic
     for_time = dt.datetime.strptime(times, "%M:%S").time()
     delta = dt.timedelta(
         minutes=for_time.minute,
@@ -33,9 +35,7 @@ def main(times: str) -> None:
     )
     time_start = dt.datetime.now()
 
-    c.print(f"For: {delta}")
-    c.print(f"Approximate finish time {time_start + delta}")
-
+    # setup the layout's components
     progress = Progress(
         TextColumn("[progress.description]{task.description}"),
         BarColumn(bar_width=30),
@@ -44,6 +44,7 @@ def main(times: str) -> None:
     task = progress.add_task("Time elapsed", total=delta.total_seconds())
     panel = Panel.fit(str(delta))
 
+    # define layout
     layout = Layout()
     layout.split_column(
         Layout(
@@ -58,6 +59,8 @@ def main(times: str) -> None:
             size=1,
         ),
     )
+
+    # start the main loop
     with Live(layout, auto_refresh=True, refresh_per_second=10) as live:
         while dt.datetime.now() < time_start + delta:
             time_left = (time_start + delta) - dt.datetime.now()
@@ -77,7 +80,8 @@ def main(times: str) -> None:
             live.update(layout)
             time.sleep(0.1)
 
-    c.print(
+    # notify the user that the timer ended and exit
+    console.print(
         Panel.fit(
             "[magenta bold]TIME's UP!",
             title="Timer finished",
